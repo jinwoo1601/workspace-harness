@@ -2,6 +2,27 @@
 
 One section per release, newest first, in plain language.
 
+## 1.1.1
+
+1.1.1 withdraws the Plastic SCM pack, `vc-plastic`, from the public release. Nothing else
+changes: every other pack, preset, script and file is as in 1.1.0 apart from the version number.
+No shipped pack requires `vc-plastic`, so a project that did not compose it updates from 1.1.0
+by the README's usual steps: check out the newer tag in the clone, then `upgrade --dry-run`, then
+`upgrade`, and nothing changes for it but the version number recorded in the project's manifest.
+
+### Removed
+
+- The Plastic SCM (Unity Version Control) pack, `vc-plastic`, which shipped in 1.1.0, is
+  withdrawn from the public release. `vc-git` is unchanged and remains the version-control pack
+  the release ships. A project that composed `vc-plastic` cannot move to 1.1.1: with the clone
+  at `v1.1.1`, `upgrade` refuses with
+  `upgrade: refused — manifest names pack vc-plastic, which is not in the base`, and `doctor`
+  and `validate` both fail with that same
+  `manifest names pack vc-plastic, which is not in the base` row. Such a project can keep its
+  release clone at `v1.1.0`, without checking out `v1.1.1`: the 1.1.0 release stays published,
+  its tag stays where it is, and the project's own composed files keep working as they did.
+  1.1.1 has no command that removes a pack from a project.
+
 ## 1.1.0
 
 1.1.0 is the harness's first public release. The entries below are what changed since 1.0.0, an

@@ -43,7 +43,7 @@ SCHEMA_NAMES = ("pack", "agent", "skill", "manifest")
 
 MANIFEST_REL = ".claude/harness.json"
 
-HARNESS_VERSION = "1.1.0"
+HARNESS_VERSION = "1.1.1"
 
 MANAGED_START = "<!-- harness:managed:start -->"
 
