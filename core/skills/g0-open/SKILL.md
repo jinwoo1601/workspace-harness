@@ -1,0 +1,37 @@
+---
+name: g0-open
+description: "Open a design topic or feature at G0: agree its scope, cut its branch, record the scope. Use on 'start a design topic' or 'open a new feature'."
+kind: orchestration
+agents: [doc-writer]
+stops: [the agreement on the topic and its scope, the ruling to run concurrently or wait where an overlap or dependency is found, the post-scope re-check on overlapping write sets]
+status: active
+bindings: [vc, process-docs, trees, session-launch, board]
+---
+
+# g0-open
+
+## What this is
+
+G0 opens a design topic or a feature: the human and the PM agree the scope, the branch is created, and the scope, with a feature's user story beside it, is recorded as the doc's opening sections — no doc or code exists before the branch does.
+
+> The branch first, then the scope in writing. Nothing is built on the main branch.
+
+## Bindings
+
+- `vc` (required) — the branch procedure (the design or feature form the branch procedure names, off the main branch) and the check-in procedure. Absent → stop and say so before anything is created.
+- `process-docs` (required) — the layout and the file names the opening sections are written into.
+- `trees` (optional) — the Hub, Location, Create procedure and List read slots `references/tree-path.md` `## The tree path` uses; the Release files slot, the release class INDEPENDENCE sets aside, as the contract's `## The release files` reads it; and the Hub slot's idiom by which a command runs in another tree. Absent → today's path. Filled → the steps run as `references/tree-path.md` orders them, and SCOPE reads the hub's `memory/backlog-candidates.md` and `memory/notes-for-future-features.md` by absolute path under the Hub path.
+- `session-launch` (optional) — the Hub session name, to which the branch run's SCOPE sends `FINISHED` for a declined or waiting item and its RE-CHECK sends `BLOCKED`; the List command, by which the active branches of `references/tree-path.md` `## The tree path` see the sessions at each tree; the launch and the brief are `handoff`'s, which LAUNCH invokes and which reads this key by its own `## Bindings`. Absent → no report is sent, the active branches read as `references/tree-path.md` has them where the key reads absent, and `handoff` gives the paste line. The Hub session name missing or `none` → no report is sent, and `handoff` gives the paste line; the List command missing or `none` → the active branches read as where the key reads absent, and `handoff` gives the paste line.
+- `board` (optional) — the *STATUS line cap*, which STATUS keeps the branch's line within. Absent, `none` or missing the slot → no cap stated, never a stop.
+- Agents — `doc-writer` missing → stop after BRANCH.
+
+## Workflow
+
+Where `trees` is filled, as the contract reads it, these steps run as `references/tree-path.md` orders them; otherwise they run as written.
+
+1. **SCOPE** — the hard stop: the PM puts the G0 packet (`.claude/references/core/gate-packet.md` `## The G0 packet`) by `.claude/references/core/ruling-form.md` — one question asking only agreement to the topic, or the backlog feature, and its scope, its defaults shown: for a feature the user story, drafted by the PM in the form *As a \<user\>, I want \<capability\>, so that \<value\>.*, and the track; the lane; on the tree path, concurrency — each overridable in the same answer. Before putting the scope, the PM reads `memory/backlog-candidates.md` and `memory/notes-for-future-features.md`, where they exist. For a feature, the PM names with the scope the design doc it comes from, locked at G1 by `g1-lock`, and the feature's row in that design's backlog, or the locked design doc that names the feature, each where the `process-docs` binding puts design docs; where it can name neither, it puts no feature scope and creates nothing for the feature: it stops and offers a design topic for the work in its place, which this skill opens as a design topic where the human takes it. Nothing is created before that agreement. For a backlog feature the PM reads the row's mark and names the track, lite or full, with the scope (`.claude/references/core/feature-lite.md` `## The mark`).
+2. **BRANCH** — per the `vc` binding's branch procedure; the ceremony is the PM's.
+3. **RECORD** — file `.scratch/doc-writer-<slug>-g0-brief.md` from `.claude/references/core/decision-brief.md`: the agreed scope with each default shown and how it was ruled — taken, or overridden in the human's words — as the decision record, the target and form per `process-docs` — the design doc's scope section for a design topic, the requirements doc's §1, the user story, and §2, the scope, for a feature. For a lite feature the target is the architecture doc's `## User story` and `## Context & scope`, no requirements doc is made (`.claude/references/core/feature-lite.md` `## The three placements`), and the brief says `lite`, gives the backlog's path and quotes the row (`.claude/references/core/feature-lite.md` `## The acceptance source`). Dispatch `doc-writer` through the Agent tool without a `name`.
+4. **STATUS** — the PM adds the branch's line to `memory/STATUS.md` (name, lane, stage, next action; within the `board` binding's *STATUS line cap* — absent or `none` → no cap stated) and checks in per the `vc` binding's check-in procedure.
+
+Where `trees` is filled, as the contract reads it, several items the human orders at once start under one ruling, as `references/tree-path.md` `## Several items` orders them; where it reads absent, one item at a time through `## Workflow`, as today.

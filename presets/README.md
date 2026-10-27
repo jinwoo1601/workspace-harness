@@ -1,0 +1,1 @@
+Presets live here, one `<name>.json` naming a pack list and a one-line description (design `harness-composition` §5.3). From the harness's root, `py scripts/harness.py list` prints every preset with the packs it names, after every pack the base ships with the presets that compose it.

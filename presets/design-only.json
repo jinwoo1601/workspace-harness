@@ -1,0 +1,5 @@
+{
+  "name": "design-only",
+  "description": "A design-track project: the gates, orientation and review, plus design-doc and ADR authoring.",
+  "packs": ["core", "design-track"]
+}

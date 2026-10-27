@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://harness.invalid/schemas/pack.schema.json",
+  "title": "Pack manifest",
+  "description": "Frontmatter of a pack's PACK.md, the pack manifest of design §5.5.",
+  "type": "object",
+  "properties": {
+    "name": { "$ref": "#/$defs/identifier" },
+    "kind": {
+      "type": "string",
+      "enum": ["core", "vc", "workflow", "platform", "docs", "craft", "knowledge", "workspace"]
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "active", "deprecated"]
+    },
+    "removal-date": {
+      "type": ["string", "null"],
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "format": "date"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "triggers": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true
+    },
+    "requires": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/identifier" },
+      "uniqueItems": true
+    },
+    "conflicts": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/identifier" },
+      "uniqueItems": true
+    },
+    "provides": {
+      "type": "object",
+      "properties": {
+        "agents": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/identifier" }
+        },
+        "skills": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/identifier" }
+        },
+        "preflight-checks": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/identifier" }
+        },
+        "references": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^[a-z0-9-]+\\.[a-z0-9]+$" }
+        },
+        "settings": { "type": "string", "minLength": 1, "pattern": "\\.json$" },
+        "automode": { "type": "string", "minLength": 1, "pattern": "\\.md$" }
+      },
+      "required": ["agents", "skills", "preflight-checks", "references"],
+      "additionalProperties": false
+    },
+    "roles": {
+      "type": "object",
+      "propertyNames": { "$ref": "#/$defs/identifier" },
+      "additionalProperties": {
+        "type": "array",
+        "items": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_*]*$" }
+      }
+    },
+    "bindings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": { "$ref": "#/$defs/identifier" },
+          "file": { "type": "string", "minLength": 1 },
+          "required": { "type": "boolean" },
+          "interview": { "type": "string" }
+        },
+        "required": ["key", "file", "required"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "name",
+    "kind",
+    "version",
+    "status",
+    "removal-date",
+    "description",
+    "triggers",
+    "requires",
+    "conflicts",
+    "provides",
+    "roles",
+    "bindings"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "identifier": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" }
+  }
+}

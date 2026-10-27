@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://harness.invalid/schemas/manifest.schema.json",
+  "title": "Harness project manifest",
+  "description": "A project's .claude/harness.json, the manifest of design §5.4.",
+  "type": "object",
+  "properties": {
+    "harness": { "$ref": "#/$defs/semver" },
+    "base": {
+      "type": "string",
+      "minLength": 1
+    },
+    "preset": {
+      "anyOf": [
+        { "$ref": "#/$defs/identifier" },
+        { "type": "null" }
+      ]
+    },
+    "packs": {
+      "type": "object",
+      "propertyNames": { "$ref": "#/$defs/identifier" },
+      "additionalProperties": { "$ref": "#/$defs/semver" }
+    },
+    "parent": {
+      "type": ["string", "null"],
+      "minLength": 1
+    },
+    "files": {
+      "type": "object",
+      "propertyNames": { "minLength": 1 },
+      "additionalProperties": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+    },
+    "bindings": {
+      "type": "object",
+      "propertyNames": { "$ref": "#/$defs/identifier" },
+      "additionalProperties": { "$ref": "#/$defs/identifier" }
+    }
+  },
+  "required": ["harness", "base", "preset", "packs", "parent", "files", "bindings"],
+  "additionalProperties": false,
+  "$defs": {
+    "identifier": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+    "semver": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" }
+  },
+  "x-classification": {
+    "description": "Upgrade classification, design §7.4, declared here so upgrade reads it instead of hardcoding it. Patterns are POSIX globs matched against a ledger path relative to the project root; entries are tested in order and the first match wins, so the list runs most-specific-first and ends in the catch-all.",
+    "classes": [
+      { "class": "LOCKED",   "patterns": [".claude/rules/CONSTITUTION.md", ".claude/references/core/constitution-annex.md"], "rule": "always replaced with the base's copy; never merged, never preserved" },
+      { "class": "PRESERVE", "patterns": [".claude/bindings/*.md"],         "rule": "never touched; new binding keys are appended as TODO sections and reported" },
+      { "class": "managed",  "patterns": ["CLAUDE.md"], "region": "managed block", "rule": "the only marker-merged region; the rest of the file is the project's" },
+      { "class": "ledgered", "patterns": ["**"],                            "rule": "replace if the file's hash equals the ledger hash; otherwise skip and report, never warn-and-overwrite" }
+    ]
+  }
+}

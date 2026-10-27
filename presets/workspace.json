@@ -1,0 +1,5 @@
+{
+  "name": "workspace",
+  "description": "A workspace root: the gates, plus the composer's lane that creates, grows, splits and lists the projects beneath it.",
+  "packs": ["core", "workspace"]
+}

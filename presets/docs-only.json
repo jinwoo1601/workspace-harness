@@ -1,0 +1,5 @@
+{
+  "name": "docs-only",
+  "description": "A documentation project: the gates and the product-doc lane, with design-doc authoring and no feature track.",
+  "packs": ["core", "codex"]
+}

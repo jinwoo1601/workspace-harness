@@ -1,0 +1,6 @@
+## classes
+<!-- Interview: Which changesets may this project's light lane review as trivial or prose, how large may a deferral batch grow, and which classes may the PM close and merge without the human's G2-lite ruling — at most how many changed lines, summed over its files, and how many files a trivial changeset touches, which path globs every file of a prose changeset must match, at most how many items one deferral batch holds, and which of `delegated` and `audited` the PM closes — or is a slot answered `none`, which reviews every changeset it would admit at slim, or, for the closing classes, delegates nothing? -->
+- Trivial bound: TODO (`<n> lines, <m> file` — the most changed lines, added plus deleted and summed over its files, and the most files a trivial changeset touches)
+- Prose paths: TODO (backticked path globs, `**` spanning folders — every file of a prose changeset matches one; only files no agent or script executes)
+- Batch cap: TODO (`<n> items` — the most deferred items one deferral batch holds)
+- Delegated classes: TODO (`delegated`, `audited`, both comma-separated, or `none` — the classes the PM closes and merges without the human's G2-lite ruling: delegated outright, audited listed under the hub STATUS `## Auto-closed` for the human's next stop)

@@ -1,0 +1,1 @@
+Domain packs live here, one directory per pack, each with a `PACK.md` whose frontmatter is the pack's contract (design `harness-composition` §5.2). From the harness's root, `py scripts/harness.py list` prints every pack the base ships, each with the presets that compose it, then every preset with the packs it names.

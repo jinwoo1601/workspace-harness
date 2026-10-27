@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://harness.invalid/schemas/skill.schema.json",
+  "title": "Skill frontmatter",
+  "description": "Frontmatter of a skill's SKILL.md, design §5.5 and §6.3.",
+  "type": "object",
+  "properties": {
+    "name": { "$ref": "#/$defs/identifier" },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "kind": {
+      "type": "string",
+      "enum": ["orchestration", "execution"]
+    },
+    "agents": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/identifier" },
+      "uniqueItems": true
+    },
+    "stops": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "bindings": {
+      "description": "Binding keys the skill consults (design §6.3, core-pack decision R); optional — the body's Bindings section states what each supplies and the degradation path.",
+      "type": "array",
+      "items": { "$ref": "#/$defs/identifier" },
+      "uniqueItems": true
+    },
+    "status": {
+      "description": "Lifecycle status; required (core-pack decision J).",
+      "type": "string",
+      "enum": ["draft", "active", "deprecated"]
+    },
+    "removal-date": {
+      "type": ["string", "null"],
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "format": "date"
+    },
+    "disable-model-invocation": { "type": "boolean" }
+  },
+  "required": ["name", "description", "kind", "status"],
+  "$defs": {
+    "identifier": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" }
+  }
+}

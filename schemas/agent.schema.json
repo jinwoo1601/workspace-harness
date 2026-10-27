@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://harness.invalid/schemas/agent.schema.json",
+  "title": "Agent frontmatter",
+  "description": "Frontmatter of an agent file under a pack's agents/ directory, design §6.2.",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "tools": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_*]*(, *[A-Za-z][A-Za-z0-9_*]*)*$"
+    },
+    "model": {
+      "type": "string",
+      "enum": ["opus", "sonnet", "inherit"]
+    },
+    "status": {
+      "description": "Lifecycle status; required (core-pack decision J).",
+      "type": "string",
+      "enum": ["draft", "active", "deprecated"]
+    },
+    "effort": {
+      "description": "Effort level, fixed per file (core-pack F4); no per-dispatch override.",
+      "type": "string",
+      "enum": ["low", "medium", "high", "xhigh", "max"]
+    },
+    "removal-date": {
+      "type": ["string", "null"],
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "format": "date"
+    },
+    "omitClaudeMd": { "type": "boolean" }
+  },
+  "required": ["name", "description", "tools", "model", "status", "effort"]
+}
